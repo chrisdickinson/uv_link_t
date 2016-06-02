@@ -23,5 +23,7 @@ source_set("uv_link_t") {
     uv_dir + ":libuv"
   ]
   public_configs = [":uv_link_t_config"]
-  configs -= [ "//build/config/clang:extra_warnings" ]
+  if (is_clang) {
+    configs -= [ "//build/config/clang:extra_warnings" ]
+  }
 }
