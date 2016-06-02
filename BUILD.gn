@@ -1,0 +1,27 @@
+import("//build_overrides/uv_link_t.gni")
+
+declare_args() {
+  uv_dir = "../libuv"
+}
+
+config("uv_link_t_config") {
+  include_dirs = ["include"]
+  defines = []
+  libs = []
+  ldflags = []
+}
+
+source_set("uv_link_t") {
+  include_dirs = ["include", "src", ".", uv_dir + "/include"]
+  sources = [
+    "src/defaults.c",
+    "src/uv_link_t.c",
+    "src/uv_link_observer_t.c",
+    "src/uv_link_source_t.c"
+  ]
+  deps = [
+    uv_dir + ":libuv"
+  ]
+  public_configs = [":uv_link_t_config"]
+  configs -= [ "//build/config/clang:extra_warnings" ]
+}
